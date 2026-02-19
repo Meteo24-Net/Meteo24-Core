@@ -1,0 +1,19 @@
+# Meteo24 Core Engine Dependencies
+# --------------------------------
+
+# OBS Integration
+obsws-python==1.3.1       # Required for communicating with OBS Studio via WebSocket v5
+
+# API Communication
+requests==2.31.0          # Required for polling REST APIs (USGS, OpenWeatherMap)
+urllib3==2.0.7            # HTTP client for requests
+
+# Environment Management
+python-dotenv==1.0.0      # Required for loading configuration from the .env file
+
+# Automation & Scheduling
+schedule==1.2.1           # Required for running periodic API polling loops
+
+# Audio Processing (For the Smart Audio Bridge)
+pyserial==3.5             # Required if triggering external hardware/PA relays
+gTTS==2.4.0               # Google Text-to-Speech for automated multilingual audio alerts
