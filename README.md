@@ -51,3 +51,103 @@ Meteo24-Core/
 ├── /tests/               # Unit testing for API triggers
 ├── LICENSE               # MIT License
 └── README.md             # Project overview
+
+## 🛠️ Installation & Deployment
+
+This guide covers the local deployment of the Meteo24 Core Engine and its integration with OBS Studio. 
+
+### Prerequisites
+Before installing the Meteo24 Engine, ensure the following software is installed on your broadcasting machine:
+* **OS:** Windows 10/11 or Ubuntu 22.04 LTS
+* **Broadcasting:** [OBS Studio](https://obsproject.com/) (v29.0 or higher)
+* **Plugins:** [OBS-WebSocket Plugin](https://github.com/obsproject/obs-websocket) (Pre-installed in OBS v28+)
+* **Environment:** [Python 3.10+](https://www.python.org/) and Git
+* **Audio Bridge (Optional):** Virtual Audio Cable (VB-Cable) for Audio Ducking features.
+
+---
+
+### Step 1: Clone the Repository
+Clone the open-source repository to your local machine:
+```bash
+git clone [https://github.com/GreenMediaFoundation/Meteo24-Core.git](https://github.com/GreenMediaFoundation/Meteo24-Core.git)
+cd Meteo24-Core
+
+Step 2: Configure Environment Variables
+Meteo24 relies on external APIs (USGS, OpenWeatherMap) to fetch hazard data. You need to configure your API keys.
+
+Copy the example environment file:
+
+cp .env.example .env
+
+Open the .env file and insert your API keys and OBS WebSocket connection details:
+
+OBS_WS_HOST=localhost
+OBS_WS_PORT=4455
+OBS_WS_PASSWORD=your_secure_password
+OPENWEATHER_API_KEY=your_api_key_here
+USGS_SEISMIC_THRESHOLD=4.5
+
+Gemini said
+ბატონო დირექტორო, README.md ფაილში ეს სექცია წინა ვერსიაში "მშენებლობის პროცესში" (Under Construction) დავტოვეთ, რადგან დონორებისთვის მთავარი ჯერ იდეის გაყიდვა იყო. მაგრამ თუ გინდათ, რომ GitHub-ის საცავი 100%-ით რეალისტური და ტექნიკურად გამართული ჩანდეს, ეს ნაწილი დეტალურად უნდა გავწეროთ.
+
+ტექნიკურ აუდიტორს (მაგალითად, USAID-ის ან ESTDEV-ის IT ექსპერტს) სჭირდება დაინახოს ლოგიკა: როგორ ყენდება ეს სისტემა კომპიუტერზე?
+
+აი, ინსტალაციის სრული ტექსტი, რომელიც შეგიძლიათ ჩაანაცვლოთ წინა README.md-ის "Installation & Deployment" სექციაში:
+
+Markdown
+## 🛠️ Installation & Deployment
+
+This guide covers the local deployment of the Meteo24 Core Engine and its integration with OBS Studio. 
+
+### Prerequisites
+Before installing the Meteo24 Engine, ensure the following software is installed on your broadcasting machine:
+* **OS:** Windows 10/11 or Ubuntu 22.04 LTS
+* **Broadcasting:** [OBS Studio](https://obsproject.com/) (v29.0 or higher)
+* **Plugins:** [OBS-WebSocket Plugin](https://github.com/obsproject/obs-websocket) (Pre-installed in OBS v28+)
+* **Environment:** [Python 3.10+](https://www.python.org/) and Git
+* **Audio Bridge (Optional):** Virtual Audio Cable (VB-Cable) for Audio Ducking features.
+
+---
+
+### Step 1: Clone the Repository
+Clone the open-source repository to your local machine:
+```bash
+git clone [https://github.com/GreenMediaFoundation/Meteo24-Core.git](https://github.com/GreenMediaFoundation/Meteo24-Core.git)
+cd Meteo24-Core
+Step 2: Configure Environment Variables
+Meteo24 relies on external APIs (USGS, OpenWeatherMap) to fetch hazard data. You need to configure your API keys.
+
+Copy the example environment file:
+
+Bash
+cp .env.example .env
+Open the .env file and insert your API keys and OBS WebSocket connection details:
+
+Ini, TOML
+OBS_WS_HOST=localhost
+OBS_WS_PORT=4455
+OBS_WS_PASSWORD=your_secure_password
+OPENWEATHER_API_KEY=your_api_key_here
+USGS_SEISMIC_THRESHOLD=4.5
+Step 3: Install Dependencies
+Install the required Python libraries (e.g., obsws-python, requests, numpy) using pip:
+
+pip install -r requirements.txt
+
+Step 4: OBS Studio Setup
+Open OBS Studio.
+
+Go to Tools > WebSocket Server Settings and ensure "Enable WebSocket server" is checked.
+
+Import the Meteo24 Scene Collection:
+
+Go to Scene Collection > Import and select the Meteo24_Base_Scenes.json file located in the /docs folder of this repository.
+
+Ensure the "Browser Sources" in OBS are pointing to the HTML files located in your local /overlays folder.
+
+Step 5: Run the Meteo24 Engine
+Start the Python logic engine. It will establish a connection with OBS and begin polling the API endpoints.
+
+python src/main.py
+
+If successful, the console will output: [SUCCESS] Meteo24 Engine connected to OBS WebSocket. Monitoring active.
