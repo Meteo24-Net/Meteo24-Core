@@ -7,10 +7,14 @@ export const requireAuth = (req: Request, res: Response, next: NextFunction) => 
 
   const validToken = process.env.WIDGET_API_TOKEN;
 
-  // If no token is configured in env, allow for development purposes, 
-  // otherwise strictly check.
   if (!validToken) {
-    console.warn('WIDGET_API_TOKEN is not set in environment. Bypassing auth.');
+    // In production, refuse to operate without a configured token
+    if (process.env.NODE_ENV === 'production') {
+      console.error('FATAL: WIDGET_API_TOKEN is not set in production. Rejecting request.');
+      return res.status(503).json({ error: 'Service misconfigured' });
+    }
+    // In development, warn but allow through for convenience
+    console.warn('WIDGET_API_TOKEN is not set. Bypassing auth (dev only).');
     return next();
   }
 

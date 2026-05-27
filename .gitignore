@@ -3,5 +3,12 @@ dist/
 build/
 .env
 .env.local
+.env.production
+.env.*.local
 .DS_Store
 *.log
+*.tsbuildinfo
+.wrangler/
+coverage/
+.vscode/
+.idea/
